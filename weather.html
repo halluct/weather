@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  	<meta charset="utf-8">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<title>Weather</title>
+</head>
+<body>
+	<div class="container">
+		
+	</div>
+	
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var cities = ["anshan", "aomen", "baise", "beihai", "beijing", "benxi", "changde", "changshan", "chenzhou", "chengdu", "chongqing", "dali", "dalian", "dandong", "emeishan", "erlianhaote", "foshan", "fushun", "ganzhou", "guangzhou", "guilin", "haerbin", "haicheng", "haikou", "haining", "hangzhou", "hefei", "huhehaote", "xianggang", "jinan", "jingdezhen", "jiujiang", "jiuquan", "kashi", "kaifeng", "kelamayi", "kunming", "lasa", "lanzhou", "lishui", "liuyang", "liuzhou", "luoyang", "mianyang", "mudanjiang", "nanchang", "nanjing", "nanning", "nanyang", "ningbo", "pingyao", "poyang", "qiqihaer", "sanya", "shanghai", "shaoxing", "shenyang", "shenzhen", "shijiazhuang", "suining", "taibei", "taiyuan", "tianjin", "tieling", "tulufan", "wulumuqi", "wenzhou", "wugang", "wuhan", "wutaishan", "wuzhou", "xiangtan", "xiangtan", "yangquan", "yichun", "yueyang", "yuncheng", "zhengzhou"];
+			$.each(cities, function(i, city) {
+				$.getJSON("http://weather.china.xappengine.com/api?city=" + city + "&callback=?", function(data) {
+			      console.log(data.forecasts[0].text);
+			    });
+			});
+		  	
+		});
+	</script>
+</body>
+</html>
