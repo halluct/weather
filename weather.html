@@ -5,16 +5,82 @@
   	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<title>Weather</title>
+  	<link rel="stylesheet" href="css/bootstrap.min.css" />
 </head>
 <body>
 	<div class="container">
-		
+		<table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>City</th>
+                <th>日期</th>
+                <th>星期</th>
+                <th>今日天气</th>
+                <th>最低温度</th>
+                <th>最高温度</th>
+                <th>Description</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="city">
+                  <code>.success</code>
+                </td>
+                <td class="date">Indicates a successful or positive action.</td>
+                <td class="weekday">Indicates a successful or positive action.</td>
+                <td class="weather">Indicates a successful or positive action.</td>
+                <td class="low">Indicates a successful or positive action.</td>
+                <td class="high">Indicates a successful or positive action.</td>
+                <td class="date">Indicates a successful or positive action.</td>
+                <td class="date">Indicates a successful or positive action.</td>
+              </tr>
+              <tr>
+                <td class="city">
+                  <code>.error</code>
+                </td>
+                <td class="date">Indicates a dangerous or potentially negative action.</td>
+                <td class="weekday">Indicates a dangerous or potentially negative action.</td>
+                <td class="weather">Indicates a dangerous or potentially negative action.</td>
+                <td class="low">Indicates a dangerous or potentially negative action.</td>
+                <td class="high">Indicates a dangerous or potentially negative action.</td>
+                <td class="date">Indicates a dangerous or potentially negative action.</td>
+                <td class="date">Indicates a dangerous or potentially negative action.</td>
+              </tr>
+              <tr>
+                <td class="city">
+                  <code>.warning</code>
+                </td>
+                <td class="date">Indicates a warning that might need attention.</td>
+                <td class="weekday">Indicates a warning that might need attention.</td>
+                <td class="weather">Indicates a warning that might need attention.</td>
+                <td class="low">Indicates a warning that might need attention.</td>
+                <td class="high">Indicates a warning that might need attention.</td>
+                <td class="date">Indicates a warning that might need attention.</td>
+                <td class="date">Indicates a warning that might need attention.</td>
+              </tr>
+              <tr>
+                <td class="city">
+                  <code>.info</code>
+                </td>
+                <td class="date">Used as an alternative to the default styles.</td>
+                <td class="weekday">Used as an alternative to the default styles.</td>
+                <td class="weather
+                ">Used as an alternative to the default styles.</td>
+                <td class="low">Used as an alternative to the default styles.</td>
+                <td class="high">Used as an alternative to the default styles.</td>
+                <td class="date">Used as an alternative to the default styles.</td>
+                <td class="date">Used as an alternative to the default styles.</td>
+              </tr>
+            </tbody>
+        </table>
 	</div>
 	
 	<script src="js/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			var cities = ["anshan", "aomen", "baise", "beihai", "beijing", "benxi", "changde", "changshan", "chenzhou", "chengdu", "chongqing", "dali", "dalian", "dandong", "emeishan", "erlianhaote", "foshan", "fushun", "ganzhou", "guangzhou", "guilin", "haerbin", "haicheng", "haikou", "haining", "hangzhou", "hefei", "huhehaote", "xianggang", "jinan", "jingdezhen", "jiujiang", "jiuquan", "kashi", "kaifeng", "kelamayi", "kunming", "lasa", "lanzhou", "lishui", "liuyang", "liuzhou", "luoyang", "mianyang", "mudanjiang", "nanchang", "nanjing", "nanning", "nanyang", "ningbo", "pingyao", "poyang", "qiqihaer", "sanya", "shanghai", "shaoxing", "shenyang", "shenzhen", "shijiazhuang", "suining", "taibei", "taiyuan", "tianjin", "tieling", "tulufan", "wulumuqi", "wenzhou", "wugang", "wuhan", "wutaishan", "wuzhou", "xiangtan", "xiangtan", "yangquan", "yichun", "yueyang", "yuncheng", "zhengzhou"];
+			// var cities = ["anshan", "aomen", "baise", "beihai", "beijing", "benxi", "changde", "changsha", "chenzhou", "chengdu", "chongqing", "dali", "dalian", "dandong", "emeishan", "erlianhaote", "foshan", "fushun", "ganzhou", "guangzhou", "guilin", "haerbin", "haicheng", "haikou", "haining", "hangzhou", "hefei", "huhehaote", "xianggang", "jinan", "jingdezhen", "jiujiang", "jiuquan", "kashi", "kaifeng", "kelamayi", "kunming", "lasa", "lanzhou", "lishui", "liuyang", "liuzhou", "luoyang", "mianyang", "mudanjiang", "nanchang", "nanjing", "nanning", "nanyang", "ningbo", "pingyao", "poyang", "qiqihaer", "sanya", "shanghai", "shaoxing", "shenyang", "shenzhen", "shijiazhuang", "suining", "taibei", "taiyuan", "tianjin", "tieling", "tulufan", "wulumuqi", "wenzhou", "wugang", "wuhan", "wutaishan", "wuzhou", "xiangtan", "yangcheng", "yangquan", "yichun", "yueyang", "yuncheng", "zhengzhou"];
+			var cities = ["anshan", "aomen", "baise"];
 			$.each(cities, function(i, city) {
 				$.getJSON("http://weather.china.xappengine.com/api?city=" + city + "&callback=?", function(data) {
 			      console.log(data.forecasts[0].text);
