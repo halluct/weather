@@ -2,16 +2,21 @@
 <html lang="en">
 <head>
   	<meta charset="utf-8">
-  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  	<title>Weather</title>
+    <title>Weather</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
   	<link rel="stylesheet" href="css/bootstrap.min.css" />
+    <style type="text/css">
+      #placeholder{
+        margin: 20px;
+      }
+    </style>
 </head>
 <body>
 	<div class="container">
     <div id="placeholder" style="width:600px;height:300px;"></div>
 		<table class="table table-bordered table-striped">
-      <caption></caption>
       <thead>
         <tr>
           <th>City</th>
@@ -30,8 +35,7 @@
 	<script src="js/jquery.flot.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-      // var cities = ["anshan", "aomen", "baise", "beihai", "beijing", "benxi", "changde", "changsha", "chenzhou", "chengdu", "chongqing", "dali", "dalian", "dandong", "emeishan", "erlianhaote", "foshan", "fushun", "ganzhou", "guangzhou", "guilin", "haerbin", "haicheng", "haikou", "haining", "hangzhou", "hefei", "huhehaote", "xianggang", "jinan", "jingdezhen", "jiujiang", "jiuquan", "kashi", "kaifeng", "kelamayi", "kunming", "lasa", "lanzhou", "lishui", "liuyang", "liuzhou", "luoyang", "mianyang", "mudanjiang", "nanchang", "nanjing", "nanning", "nanyang", "ningbo", "pingyao", "poyang", "qiqihaer", "sanya", "shanghai", "shaoxing", "shenyang", "shenzhen", "shijiazhuang", "suining", "taibei", "taiyuan", "tianjin", "tieling", "tulufan", "wulumuqi", "wenzhou", "wugang", "wuhan", "wutaishan", "wuzhou", "xiangtan", "yangcheng", "yangquan", "yichun", "yueyang", "yuncheng", "zhengzhou"];
-      var cities = ["anshan", "aomen", "baise", "beihai", "beijing", "benxi", "changde", "changsha", "chenzhou", "chengdu", "chongqing"];
+      var cities = ["anshan", "aomen", "baise", "beihai", "beijing", "benxi", "changde", "changsha", "chenzhou", "chengdu", "chongqing", "dali", "dalian", "dandong", "emeishan", "erlianhaote", "foshan", "fushun", "ganzhou", "guangzhou", "guilin", "haerbin", "haicheng", "haikou", "haining", "hangzhou", "hefei", "huhehaote", "xianggang", "jinan", "jingdezhen", "jiujiang", "jiuquan", "kashi", "kaifeng", "kelamayi", "kunming", "lasa", "lanzhou", "lishui", "liuyang", "liuzhou", "luoyang", "mianyang", "mudanjiang", "nanchang", "nanjing", "nanning", "nanyang", "ningbo", "pingyao", "poyang", "qiqihaer", "sanya", "shanghai", "shaoxing", "shenyang", "shenzhen", "shijiazhuang", "suining", "taibei", "taiyuan", "tianjin", "tieling", "tulufan", "wulumuqi", "wenzhou", "wugang", "wuhan", "wutaishan", "wuzhou", "xiangtan", "yangcheng", "yangquan", "yichun", "yueyang", "yuncheng", "zhengzhou"];
       var hightTemp = [];
 
       var options = {
@@ -40,10 +44,8 @@
         xaxis: { tickDecimals: 0, tickSize: 1 },
         yaxis: { tickDecimals: 0, tickSize: 1 }
       };
-      var data = [];
       var placeholder = $("#placeholder");
-      
-      $.plot(placeholder, data, options);
+      $.plot(placeholder, [], options);
         
       $.each(cities, function(i, city) {
         $.getJSON("http://weather.china.xappengine.com/api?city=" + city + "&callback=?", function(res) {
@@ -53,26 +55,34 @@
             $('.container').find('tbody').append(html);
             
             hightTemp.push(forecasts.high);
-
-            if(hightTemp.length == cities.length) {
-              var cityCountArray = [];  
-              hightTemp.sort();  
-              for(var i = 0;i<hightTemp.length;){  
-                var count = 0;  
-                for(var j=i;j<hightTemp.length;j++){  
-                  if(hightTemp[i] == hightTemp[j]){  
-                    count++;  
-                  }  
-                }  
-                cityCountArray.push( [hightTemp[i],count] );  
-                i += count;  
-              } 
-              for(var i = 0;i<cityCountArray.length;i++){  
-                $.plot(placeholder, [cityCountArray], options);
-              }
-            }
+            drawChart(hightTemp);
           });
       });	
+
+      function sortNumber(a,b){
+        return a - b
+      }
+
+      function drawChart(hightTemp) {
+        hightTemp.sort(sortNumber);
+        console.log(hightTemp);
+
+        var cityCountArray = [];
+        for(var i = 0;i < hightTemp.length;){  
+          var count = 0;  
+          for(var j = i;j < hightTemp.length;j++){  
+            if(hightTemp[i] == hightTemp[j]){  
+              count ++;  
+            }  
+          }  
+          cityCountArray.push( [hightTemp[i],count] );  
+          i += count;  
+        }
+
+        for(var i = 0;i < cityCountArray.length;i++){  
+          $.plot(placeholder, [cityCountArray], options);
+        }
+      }
 		});
 	</script>
 </body>
